@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if current_user.is_farmer %}Orders for Your Products{% else %}My Orders{% endif %}</h2>
+    
+    {% if orders %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    {% if current_user.is_farmer %}
+                    <th>Buyer Details</th>
+                    <th>Delivery Address</th>
+                    <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>₹{{ "%.2f"|format(order.total_price) }}</td>
+                    <td>{{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        <span class="badge {% if order.status == 'pending' %}bg-warning
+                            {% elif order.status == 'accepted' %}bg-success
+                            {% elif order.status == 'rejected' %}bg-danger
+                            {% elif order.status == 'completed' %}bg-info
+                            {% endif %}">
+                            {{ order.status|title }}
+                        </span>
+                    </td>
+                    {% if current_user.is_farmer %}
+                    <td>
+                        <strong>{{ order.buyer.username }}</strong><br>
+                        <small>📱 {{ order.delivery_phone }}</small>
+                    </td>
+                    <td>
+                        {{ order.delivery_street }}<br>
+                        {{ order.delivery_city }}, {{ order.delivery_state }}<br>
+                        PIN: {{ order.delivery_pincode }}
+                    </td>
+                    <td>
+                        {% if order.status == 'pending' %}
+                        <div class="btn-group" role="group">
+                            <form method="POST" action="{{ url_for('update_order_status', order_id=order.id, status='accepted') }}" class="d-inline">
+                                <button type="submit" class="btn btn-success btn-sm me-1" onclick="return confirm('Accept this order?')">
+                                    <i class="fas fa-check"></i> Accept
+                                </button>
+                            </form>
+                            <form method="POST" action="{{ url_for('update_order_status', order_id=order.id, status='rejected') }}" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Reject this order?')">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                            </form>
+                        </div>
+                        {% elif order.status == 'accepted' %}
+                        <form method="POST" action="{{ url_for('update_order_status', order_id=order.id, status='completed') }}" class="d-inline">
+                            <button type="submit" class="btn btn-info btn-sm" onclick="return confirm('Mark this order as completed?')">
+                                <i class="fas fa-check-double"></i> Complete
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted">No orders found.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">Back to Home</a>
+</div>
+{% endblock %}

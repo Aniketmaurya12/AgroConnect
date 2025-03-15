@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.about-section {
+    padding: 50px 0;
+}
+.about-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background: #fff;
+    transition: transform 0.3s;
+}
+.about-card:hover {
+    transform: translateY(-5px);
+}
+.feature-icon {
+    font-size: 2.5rem;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+.team-member {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+.mission-vision {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 40px;
+    margin: 40px 0;
+}
+.stat-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: #28a745;
+    color: white;
+    margin-bottom: 20px;
+}
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.product-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background: #fff;
+    transition: transform 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+}
+.product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+.category-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.product-details {
+    margin-top: 20px;
+}
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.stock-info, .farmer-info {
+    font-size: 1rem;
+    color: #666;
+}
+.quantity-selector {
+    display: flex;
+    align-items: center;
+}
+.quantity-input {
+    width: 50px;
+    text-align: center;
+}
+.toast {
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+    opacity: 1;
+}
+</style>
+
+<div class="about-section">
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-4">Welcome to AgroConnect</h1>
+        <p class="lead">Empowering farmers and connecting communities through digital agriculture</p>
+    </div>
+
+    <!-- Mission & Vision -->
+    <div class="mission-vision">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="about-card h-100">
+                    <i class="fas fa-bullseye feature-icon"></i>
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize agricultural commerce by creating a direct bridge between farmers and consumers, ensuring fair prices and sustainable practices while promoting local farming communities.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="about-card h-100">
+                    <i class="fas fa-eye feature-icon"></i>
+                    <h3>Our Vision</h3>
+                    <p>To build a future where technology empowers every farmer to reach their full potential and where consumers have easy access to fresh, local produce directly from the source.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Features -->
+    <h2 class="text-center mb-4">What Makes Us Different</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="about-card h-100">
+                <i class="fas fa-handshake feature-icon"></i>
+                <h4>Direct Farm-to-Consumer</h4>
+                <p>Eliminate intermediaries and create direct connections between farmers and consumers, ensuring better prices for both parties.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="about-card h-100">
+                <i class="fas fa-mobile-alt feature-icon"></i>
+                <h4>Digital Empowerment</h4>
+                <p>Bridging the digital divide by providing farmers with easy-to-use technology to reach a wider market.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="about-card h-100">
+                <i class="fas fa-robot feature-icon"></i>
+                <h4>AI-Powered Assistant</h4>
+                <p>Intelligent chatbot support for both farmers and customers, providing 24/7 assistance and guidance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Statistics -->
+    <h2 class="text-center mb-4">Our Impact</h2>
+    <div class="row">
+        <div class="col-md-3 col-6">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div>Active Farmers</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="stat-card">
+                <div class="stat-number">10K+</div>
+                <div>Happy Customers</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="stat-card">
+                <div class="stat-number">30%</div>
+                <div>Average Savings</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div>Support</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <h2 class="text-center mb-4">Our Products</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 product-card">
+                <div class="category-badge">
+                    <span class="badge bg-success">Vegetables</span>
+                </div>
+                <img src="{{ url_for('static', filename='uploads/po.jpeg') }}" 
+                     class="card-img-top product-img" alt="Fresh Tomatoes">
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">Fresh Tomatoes</h5>
+                    <p class="card-text">Fresh, locally grown tomatoes from our trusted farmers. Rich in vitamins and antioxidants.</p>
+                    <div class="product-details">
+                        <p class="text-success fw-bold price">₹30.00 per kg</p>
+                        <p class="stock-info"><i class="fas fa-box"></i> Available: 4 kg</p>
+                        <p class="farmer-info"><i class="fas fa-user-circle"></i> Local Farmer</p>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                    <div class="quantity-selector">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="decrementQuantity(1)">-</button>
+                        <input type="number" id="quantity-1" class="form-control form-control-sm quantity-input" value="1" min="1" max="4">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="incrementQuantity(1)">+</button>
+                    </div>
+                    <button onclick="addToCart(1)" class="btn btn-success">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 product-card">
+                <div class="category-badge">
+                    <span class="badge bg-success">Vegetables</span>
+                </div>
+                <img src="{{ url_for('static', filename='uploads/poato.jpeg') }}" 
+                     class="card-img-top product-img" alt="Fresh Potatoes">
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">Fresh Potatoes</h5>
+                    <p class="card-text">Premium quality potatoes sourced directly from local farmers. Perfect for various dishes.</p>
+                    <div class="product-details">
+                        <p class="text-success fw-bold price">₹20.00 per kg</p>
+                        <p class="stock-info"><i class="fas fa-box"></i> Available: 9 kg</p>
+                        <p class="farmer-info"><i class="fas fa-user-circle"></i> Local Farmer</p>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                    <div class="quantity-selector">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="decrementQuantity(2)">-</button>
+                        <input type="number" id="quantity-2" class="form-control form-control-sm quantity-input" value="1" min="1" max="9">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="incrementQuantity(2)">+</button>
+                    </div>
+                    <button onclick="addToCart(2)" class="btn btn-success">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5">
+        <h3 class="mb-4">Join Our Growing Community</h3>
+        <p class="mb-4">Whether you're a farmer looking to expand your market or a consumer seeking fresh, local produce, AgroConnect is here for you.</p>
+        {% if not current_user.is_authenticated %}
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('register') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-user-plus me-2"></i>Register Now
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function incrementQuantity(productId) {
+    const input = document.getElementById(`quantity-${productId}`);
+    const currentValue = parseInt(input.value);
+    const maxValue = parseInt(input.max);
+    if (currentValue < maxValue) {
+        input.value = currentValue + 1;
+    }
+}
+
+function decrementQuantity(productId) {
+    const input = document.getElementById(`quantity-${productId}`);
+    const currentValue = parseInt(input.value);
+    if (currentValue > 1) {
+        input.value = currentValue - 1;
+    }
+}
+
+function addToCart(productId) {
+    const quantityInput = document.getElementById(`quantity-${productId}`);
+    const quantity = parseInt(quantityInput.value);
+    
+    fetch('/add-to-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            product_id: productId,
+            quantity: quantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('Product added to cart successfully!', 'success');
+        } else {
+            showToast(data.message || 'Failed to add product to cart', 'error');
+        }
+    })
+    .catch(error => {
+        showToast('An error occurred while adding to cart', 'error');
+    });
+}
+
+function showToast(message, type) {
+    const toastContainer = document.getElementById('toast-container') || createToastContainer();
+    const toast = document.createElement('div');
+    toast.className = `toast ${type === 'success' ? 'bg-success' : 'bg-danger'} text-white`;
+    toast.innerHTML = message;
+    toastContainer.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }, 100);
+}
+
+function createToastContainer() {
+    const container = document.createElement('div');
+    container.id = 'toast-container';
+    container.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 1000;';
+    document.body.appendChild(container);
+    return container;
+}
+</script>
+{% endblock %}

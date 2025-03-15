@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Add New Product</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+            <label for="name">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="price">Price (₹)</label>
+            <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" required>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="quantity">Quantity Available</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Grains">Grains</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="image">Product Image</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+</div>
+{% endblock %}
